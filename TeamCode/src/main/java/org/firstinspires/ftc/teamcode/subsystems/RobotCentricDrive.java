@@ -26,6 +26,8 @@ public class RobotCentricDrive {
         double fr = (forward - strafe - turn) / denominator * speed;
         double bl = (forward - strafe + turn) / denominator * speed;
         double br = (forward + strafe - turn) / denominator * speed;
-        motors.setPower(fl, fr, bl, br);
+        double intakeVal = gamepads.isIntakeOn() ? 1.0 : 0.0;
+        double shooterVal = gamepads.isShooterOn() ? 1.0 : 0.0;
+        motors.setPower(fl, fr, bl, br, intakeVal, shooterVal);
     }
 }

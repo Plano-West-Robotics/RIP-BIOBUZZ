@@ -39,7 +39,9 @@ public class FieldCentricDrive {
         fr = (robotForward - robotStrafe - turn) / denominator * speed;
         bl = (robotForward - robotStrafe + turn) / denominator * speed;
         br = (robotForward + robotStrafe - turn) / denominator * speed;
-        motors.setPower(fl, fr, bl, br);
+        double intakeVal = gamepads.isIntakeOn() ? 1.0 : 0.0;
+        double shooterVal = gamepads.isShooterOn() ? 1.0 : 0.0;
+        motors.setPower(fl, fr, bl, br, intakeVal, shooterVal);
     }
 
     public void resetHeading() {

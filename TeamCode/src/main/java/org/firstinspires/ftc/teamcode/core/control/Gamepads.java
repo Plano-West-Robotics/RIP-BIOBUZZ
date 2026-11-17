@@ -7,7 +7,7 @@ public class Gamepads {
     private static final double DEADZONE = 0.05;
 
     private double forward, strafe, turn;
-    private boolean slowMode, resetPressed, resetWasPressed;
+    private boolean slowMode, resetPressed, resetWasPressed, intake, shooter;
 
     public Gamepads(Gamepad gamepad1) {
         syncButtons(gamepad1);
@@ -23,6 +23,8 @@ public class Gamepads {
         strafe = deadzone(gamepad1.left_stick_x);
         turn = deadzone(gamepad1.right_stick_x);
         slowMode = gamepad1.right_bumper;
+        intake = gamepad1.a;
+        shooter = gamepad1.b;
         boolean pressed = gamepad1.dpad_right;
         resetPressed = pressed && !resetWasPressed;
         resetWasPressed = pressed;
@@ -33,6 +35,10 @@ public class Gamepads {
     public double getTurn() { return turn; }
     public boolean isSlowMode() { return slowMode; }
     public boolean justPressedHeadingReset() { return resetPressed; }
+
+    public boolean isIntakeOn() { return intake; }
+
+    public boolean isShooterOn() { return shooter; }
 
     private double deadzone(double value) {
         return Math.abs(value) < DEADZONE ? 0.0 : value;
