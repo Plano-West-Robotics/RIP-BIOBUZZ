@@ -9,6 +9,7 @@ public class RobotCentricDrive {
     private static final double SLOW_SPEED = 0.5;
     private static final double TURN_MULTIPLIER = 0.85;
 
+    private double angle = 0.5;
     private final DrivetrainMotors motors;
 
     public RobotCentricDrive(DrivetrainMotors motors) {
@@ -28,6 +29,13 @@ public class RobotCentricDrive {
         double br = (forward + strafe - turn) / denominator * speed;
         double intakeVal = gamepads.isIntakeOn() ? 1.0 : 0.0;
         double shooterVal = gamepads.isShooterOn() ? 1.0 : 0.0;
-        motors.setPower(fl, fr, bl, br, intakeVal, shooterVal);
+
+        if (gamepads.turretUpPresssed()) {
+            angle += 0.1;
+        } else if (gamepads.turretDownPressed()) {
+            angle -= 0.1;
+        }
+
+        motors.setPower(fl, fr, bl, br, intakeVal, shooterVal, angle);
     }
 }

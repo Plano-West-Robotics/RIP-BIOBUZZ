@@ -7,7 +7,7 @@ public class Gamepads {
     private static final double DEADZONE = 0.05;
 
     private double forward, strafe, turn;
-    private boolean slowMode, resetPressed, resetWasPressed, intake, shooter;
+    private boolean slowMode, resetPressed, resetWasPressed, intake, shooter, turretAngleUP, turretAngleDown;
 
     public Gamepads(Gamepad gamepad1) {
         syncButtons(gamepad1);
@@ -22,12 +22,14 @@ public class Gamepads {
         forward = deadzone(-gamepad1.left_stick_y);
         strafe = deadzone(gamepad1.left_stick_x);
         turn = deadzone(gamepad1.right_stick_x);
-        slowMode = gamepad1.right_bumper;
+        slowMode = gamepad1.touchpad;
         intake = gamepad1.a;
         shooter = gamepad1.b;
-        boolean pressed = gamepad1.dpad_right;
+        boolean pressed = gamepad1.left_bumper && gamepad1.right_bumper;
         resetPressed = pressed && !resetWasPressed;
         resetWasPressed = pressed;
+        turretAngleDown = gamepad1.left_trigger > 0.5;
+        turretAngleUP = gamepad1.right_trigger > 0.5;
     }
 
     public double getForward() { return forward; }
@@ -39,6 +41,9 @@ public class Gamepads {
     public boolean isIntakeOn() { return intake; }
 
     public boolean isShooterOn() { return shooter; }
+
+    public boolean turretUpPresssed() { return turretAngleUP; }
+    public boolean turretDownPressed() { return turretAngleDown; }
 
     private double deadzone(double value) {
         return Math.abs(value) < DEADZONE ? 0.0 : value;
