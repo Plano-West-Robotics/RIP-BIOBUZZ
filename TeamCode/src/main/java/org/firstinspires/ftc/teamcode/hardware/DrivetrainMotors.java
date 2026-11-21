@@ -9,7 +9,7 @@ public class DrivetrainMotors {
     private final DcMotor frontLeft, frontRight, backLeft, backRight, intake, shooter;
     private final DcMotor[] motors;
 
-    private final Servo  servoTurretOne, servoTurretTwo, servoGate;
+    private final Servo  servoTurretOne, servoTurretTwo;//, servoGate;
 
 
 
@@ -23,7 +23,9 @@ public class DrivetrainMotors {
         shooter = hardwareMap.get(DcMotor.class, "shooter");
         servoTurretOne = hardwareMap.get(Servo.class, "servoOne");
         servoTurretTwo = hardwareMap.get(Servo.class, "servoTwo");
-        servoGate = hardwareMap.get(Servo.class, "servoGate");
+        servoTurretOne.setDirection(Servo.Direction.FORWARD);
+        servoTurretTwo.setDirection(Servo.Direction.REVERSE);
+        //servoGate = hardwareMap.get(Servo.class, "servoGate");
         motors = new DcMotor[]{frontLeft, frontRight, backLeft, backRight};
         stop();
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);

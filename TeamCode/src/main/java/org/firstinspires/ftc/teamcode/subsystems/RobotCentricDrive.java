@@ -36,6 +36,7 @@ public class RobotCentricDrive {
             angle -= 0.1;
         }
 
+        angle = Math.max(0.0, Math.min(1.0, angle));
         motors.setPower(fl, fr, bl, br, intakeVal, shooterVal, angle);
     }
 }

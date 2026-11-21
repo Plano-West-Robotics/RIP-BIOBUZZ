@@ -28,8 +28,8 @@ public class Gamepads {
         boolean pressed = gamepad1.left_bumper && gamepad1.right_bumper;
         resetPressed = pressed && !resetWasPressed;
         resetWasPressed = pressed;
-        turretAngleDown = gamepad1.left_trigger > 0.5;
-        turretAngleUP = gamepad1.right_trigger > 0.5;
+        turretAngleDown = gamepad1.dpad_down;
+        turretAngleUP = gamepad1.dpad_up;
     }
 
     public double getForward() { return forward; }

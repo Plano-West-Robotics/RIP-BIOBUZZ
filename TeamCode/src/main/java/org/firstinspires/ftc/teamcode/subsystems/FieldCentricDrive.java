@@ -16,7 +16,7 @@ public class FieldCentricDrive {
     private final DrivetrainMotors motors;
     private final IMU imu;
     private double heading, fl, fr, bl, br;
-    private double angle = 0.5;
+    private double angle = 0;
     private boolean slowMode;
 
     public FieldCentricDrive(Hardware hardware) {
@@ -44,11 +44,12 @@ public class FieldCentricDrive {
         double shooterVal = gamepads.isShooterOn() ? 1.0 : 0.0;
 
         if (gamepads.turretUpPresssed()) {
-            angle += 0.1;
+            angle += 0.01;
         } else if (gamepads.turretDownPressed()) {
-            angle -= 0.1;
+            angle -= 0.01;
         }
 
+        angle = Math.max(0.0, Math.min(1.0, angle));
         motors.setPower(fl, fr, bl, br, intakeVal, shooterVal, angle);
     }
 
